@@ -1,1 +1,1 @@
-# block-party
+# Block Party: An App for Neighborhood Explorers
