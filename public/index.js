@@ -6,7 +6,9 @@ const get311Card = (record) => {
   return $(`<div class="card">
     <div class="card-body">
       <h5 class="card-title">${record.issue_type}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">${record.displayTimestamp}</h6>
       <p class="card-text">${record.issue_description}</p>
+      <footer class="blockquote-footer text-muted">${record.address}</footer>
     </div>
   </div>`)
 }
