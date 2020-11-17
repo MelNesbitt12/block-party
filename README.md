@@ -5,7 +5,7 @@ This app is designed to provide Cambridge residents with an aggregation of local
 # APIs/RSS
 - Cambridge 311
 - r/CambridgeMA subreddit
-- Meetup API (in progress)
+- r/Somerville subreddit
 - Yelp API (in progress)
 
 
