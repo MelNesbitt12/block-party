@@ -7,7 +7,7 @@ const timeStampKey = 'ticket_created_date_time'
 const source = 'Cambridge_311'
 
 const minDate = moment().subtract(7, 'days')
-const minDay = minDate.day()
+const minDay = minDate.date()
 // January = 0 so add 1
 const minMonth = minDate.month() + 1
 const minYear = minDate.year()
