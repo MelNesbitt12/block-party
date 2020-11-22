@@ -1,7 +1,7 @@
 const express = require('express')
 const axios = require('axios')
 const moment = require('moment')
-const utils = require('./utils')
+const utils = require('./utils');
 
 const timeStampKey = 'ticket_created_date_time'
 const source = 'Cambridge_311'

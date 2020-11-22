@@ -3,7 +3,7 @@ const moment = require('moment')
 const app = express()
 let Parser = require('rss-parser')
 let parser = new Parser()
-let utils = require('./utils')
+const utils = require('./utils');
 
 const timeStampKey = 'pubDate'
 const source = 'r/Somerville'

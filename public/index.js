@@ -1,5 +1,7 @@
 'use strict'
-// Add event listeners here
+
+let currentPage = 1
+let limit = 15
 
 // converts a 311 record into an HTML card element
 const get311Card = (record) => {
@@ -31,10 +33,15 @@ const getRedditCard = (record) => {
   </div>`)
 }
 
+// variable used to prevent infinite scroll from asking for next page of data too rapidly/rendundantly while waiting for response  
+let pagingInProg = false
+
 // fetches feed data
-const getFeed = () => {
+const getNextPage = (event) => {
+  console.log(`Fetching page ${currentPage}`)
+  pagingInProg = true
   $.ajax({
-    url: '/feed',
+    url: `/feed?page=${currentPage}&limit=${limit}`,
     contentType: 'application/json',
     dataType: 'json'
   })
@@ -49,8 +56,23 @@ const getFeed = () => {
       $('.card-list').append(newCard)
     }
   }))
+  .then(() => {
+    currentPage += 1
+    pagingInProg = false
+  })
 }
 
+// Infinite scroll
+$(window).on("scroll", function() {
+  let scrollHeight = $(document).height()
+  let scrollPos = $(window).height() + $(window).scrollTop()
+  // loading new data 300px before bottom of page
+  if (!pagingInProg && ((scrollHeight - 300) < scrollPos)) {
+    getNextPage()
+  }
+})
+
+
 window.onload = () => {
-  getFeed()
+  getNextPage()
 }

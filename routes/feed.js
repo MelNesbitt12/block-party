@@ -1,24 +1,22 @@
 const express = require('express')
+const app = express()
 const axios = require('axios')
 const moment = require('moment')
-const app = express()
-const cambridge311 = require('../models/cambridge311')
-const cambridgeReddit = require('../models/cambridgeReddit')
-const somervilleReddit = require('../models/somervilleReddit')
-const utils = require('../models/utils')
+const feedRecords = require('../models/feedRecords');
 
-module.exports = (app) => {
-  app.get('/feed', async(req, res) => {
-    let cambridgeRedditData = cambridgeReddit()
-    let cambridge311Data = cambridge311()
-    let somervilleRedditData = somervilleReddit()
+// ADD POLLING FOR PRODUCTION - periodic check for new data to be served to client
+module.exports = async (app) => {
+  const feed = await feedRecords.getData()
+  app.get('/feed', (req, res) => {
+    let page = parseInt(req.query.page)
+    let limit = parseInt(req.query.limit)
+    let pageStart = (page - 1) * limit
+    let pageEnd = page * limit
 
-    let feed = await Promise.all([cambridgeRedditData, cambridge311Data, somervilleRedditData])
-
-    feed = utils.sortRecords([...feed[0], ...feed[1],...feed[2]])
+    const feedPage = feed.slice(pageStart, pageEnd)
 
     res.json({
-      data: feed
+      data: feedPage
     })
   })
 }
