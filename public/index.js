@@ -1,5 +1,6 @@
 'use strict'
 
+// pagination
 let currentPage = 1
 let limit = 15
 
@@ -33,7 +34,7 @@ const getRedditCard = (record) => {
   </div>`)
 }
 
-// variable used to prevent infinite scroll from asking for next page of data too rapidly/rendundantly while waiting for response  
+// variable used to prevent infinite scroll from asking for next page of data too rapidly/rendundantly while waiting for response
 let pagingInProg = false
 
 // fetches feed data
